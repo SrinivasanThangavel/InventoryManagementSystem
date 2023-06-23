@@ -1,0 +1,21 @@
+version: '2'
+services:
+  mongoService:
+    image: mongo:latest
+    container_name: mongo_container
+    restart: always
+    ports:
+      - 27017:27017
+    network_mode: host
+
+  inventoryService:
+    image: inventory-service
+    container_name: inventory-service
+    build: ./Inventory-Service
+    restart: always
+    network_mode: "host"
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongoService
+
